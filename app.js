@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const lodash = require("lodash")
 const { textTrim } = require("./textTriming");
 
 const homeStartingContent =
@@ -50,9 +51,16 @@ app.post("/compose", (req, res) => {
 });
 
 app.get("/posts/:postName", (req, res) => {
-  if(posts.some(obj=> obj.title === req.params.postName))
-  console.log("Match Found")
+  const requestedTitle = lodash.lowerCase(req.params.postName)
+  posts.forEach((post)=>{
+    const storedTitle = lodash.lowerCase(post.title)
+    if(storedTitle === requestedTitle){
+      res.render("post",{Title:post.title,Body:post.body})
+    }
+  })  
 });
+
+
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
