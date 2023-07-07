@@ -1,7 +1,18 @@
 <%- include("partials/header") -%>
 
 
+
 <h1>Home</h1>
-<p><%- StartingContent%></p>
+<p><%- StartingContent %></p>
+
+
+<% NewPost.forEach((post) => { %>
+  <h2 style="color: rgb(39, 39, 49);"><%= post.title %></h2>
+  <p><%= post.body %></p>
+<% }) %>
+  
+
+
 
 <%- include("partials/footer") -%>
+
